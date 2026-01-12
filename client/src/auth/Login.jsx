@@ -2,10 +2,12 @@ import React from 'react';
 import { Button, Card, Flex, Form, Input, Typography } from 'antd';
 import { Link } from 'react-router-dom';
 import loginImage from '../assets/login.png';
+import useLogin from '../hooks/useLogin.jsx';
 
 const Login = () => {
+  const {error, loading, loginUser} = useLogin();
   const handleLogin = async (values) => {
-    console.log(values);
+    await loginUser(values);
   };
 
   return (
@@ -69,22 +71,34 @@ const Login = () => {
               />
             </Form.Item>
 
+            {
+              error && (
+                <Alert
+                description={error}
+                type="error"
+                showIcon 
+                closable
+                className = "alert" 
+                />
+              )
+            }
+
             <Form.Item>
               <Button
-                type="primary"
+                type={`${loading ? '' : 'primary'}`}
                 htmlType="submit"
                 size="large"
                 className="btn"
                 block
               >
-                Sign In
+                {loading ? 'Signing In...' : 'Sign In'}
               </Button>
             </Form.Item>
 
             <Form.Item>
               <Link to="/">
                 <Button size="large" className="btn" block>
-                  Create an account
+                  Create Account
                 </Button>
               </Link>
             </Form.Item>

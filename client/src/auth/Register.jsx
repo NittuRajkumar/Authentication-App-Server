@@ -100,13 +100,13 @@ const Register = () => {
             <Form.Item>
               <Button type= {`${loading ? '' : 'primary'}`} htmlType="submit" size="large" className="btn">
                 {loading ? <Spin /> : 'Create Account'} 
-                Create Account
+                
               </Button>
             </Form.Item>
 
             <Link to="/login">
               <Button size="large" className="btn">
-                Sign In
+                Log In
               </Button>
             </Link>
           </Form>

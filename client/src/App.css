@@ -49,3 +49,18 @@ width: 1000px;
  justify-content: center;
   padding-bottom: 150px;
 }  
+
+/* Profile-card */
+.profile-card {
+  width: 500px;
+}
+.avatar{
+  margin-bottom: 1.5rem;
+}
+.username{
+  text-transform: capitalize;
+}
+.profile-btn{
+  width: 100%;
+  margin-top: 1rem;
+}
