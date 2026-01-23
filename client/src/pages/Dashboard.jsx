@@ -9,6 +9,9 @@ const Dashboard = () => {
   const handleLogout = async () => {
     await logout();
   };
+  // if (!userData){
+  //   return <p>Loading...........</p>
+  // }
 
   return (
   <Card className="profile-card">
@@ -46,3 +49,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
