@@ -1,17 +1,26 @@
 import React from 'react';
+
+// const Dashboard = () => {
+//   return (
+//     <div> Dashboard Page </div>
+//   );
+// }
+
+
 import { Avatar, Button, Card, Flex, Typography } from 'antd';
 import { useAuth } from '../contexts/AuthContext';
 import { UserOutlined } from '@ant-design/icons';
 
 const Dashboard = () => {
   const {userData, logout } = useAuth();
+  console.log("User Data:", userData);
 
   const handleLogout = async () => {
     await logout();
   };
-  // if (!userData){
-  //   return <p>Loading...........</p>
-  // }
+  if (!userData){
+    return <p>Loading....</p>
+  }
 
   return (
   <Card className="profile-card">

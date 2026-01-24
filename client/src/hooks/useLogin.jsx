@@ -1,3 +1,55 @@
+// import { useState } from 'react';
+// import { useAuth } from '../contexts/AuthContext';
+// import { message } from 'antd';
+
+// const useLogin = () => {
+//   const { login } = useAuth();
+//   const [error, setError] = useState(null);
+//   const [loading, setLoading] = useState(null);
+
+//   const loginUser = async (values) => {
+//     try {
+//       setError(null);
+//       setLoading(true);
+
+//       const res = await fetch('http://localhost:3000/api/auth/login', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(values),
+//       });
+
+//       const data = await res.json();
+
+//       if (res.status === 200){
+//         message.success(data.message)
+//         login(data.token, data.user);
+//       }
+//       else if (res.status === 404) {
+//         setError(data.message);
+//         }
+//         else {
+//             message.error("Registration Failed")
+//         }
+
+//     } catch (error) {
+//       message.error("Registration Failed",error)
+//     }finally{
+//         setLoading(false);
+//     }
+//   };
+
+//   return {
+//     loginUser,
+//     error,
+//     loading,
+//   };
+// };
+
+// export default useLogin;///////////////////
+
+
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { message } from 'antd';
@@ -5,7 +57,7 @@ import { message } from 'antd';
 const useLogin = () => {
   const { login } = useAuth();
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const loginUser = async (values) => {
     try {
@@ -22,21 +74,32 @@ const useLogin = () => {
 
       const data = await res.json();
 
-      if (res.status === 200){
-        message.success(data.message)
+      if (res.status === 200) {
+        // ✅ Correct login
+        message.success("Login successful");
         login(data.token, data.user);
-      }
-      else if (res.status === 404) {
-        setError(data.message);
-        }
-        else {
-            message.error("Registration Failed")
-        }
 
-    } catch (error) {
-      message.error("Registration Failed",error)
-    }finally{
-        setLoading(false);
+      } else if (res.status === 404) {
+        // ❌ Wrong email
+        message.error("User does not exist");
+        setError("User does not exist");
+
+      } else if (res.status === 401) {
+        // ❌ Wrong password (FORCED message)
+        message.error("Invalid password");
+        setError("Invalid password");
+
+      } else {
+        message.error("Login failed");
+        setError("Login failed");
+      }
+
+    } catch (err) {
+      message.error("Something went wrong");
+      setError("Something went wrong");
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
